@@ -31,6 +31,8 @@ namespace AutoGitCLI {
 
     void infoScreen();
 
+    void cli_version();
+
     class Application : public CLI::App {
     protected:
         int m_argc;

@@ -20,7 +20,7 @@ namespace AutoGitCLI {
 
     std::string description() {
         std::string desc;
-        desc = "\nAutoGit-CLI - A command-line tool to easily create and remove repositories from GitHub and local system.\n";
+        desc = "\nAutoGit - A command-line tool to easily create and remove repositories from GitHub and local system.\n";
         return desc;
     }
 
@@ -29,18 +29,31 @@ namespace AutoGitCLI {
         std::cout << Color::green << Color::bold << description() << Color::reset;
     }
 
+    void cli_version() {
+        std::cout << Color::green << Color::bold << "\nAutoGit Version: 2.0.0\n" << Color::reset;
+    }
+
     Application::Application(std::string description, int argc, char** argv)
         : CLI::App(description), m_argc(argc), m_argv(argv) 
     {
+
+        /// Version flag
+        add_flag_function("-v,--version",
+            [this](int i) {
+                cli_version();
+                throw CLI::Success();
+            },
+            "Version of the AutoGit CLI");
 
         /// Info flag    
         add_flag_function(
             "-i,--info",
             [this](int i) {
                 infoScreen();
+                cli_version();
                 throw CLI::Success();
             },
-            "Give info about AutoGitCLI");
+            "Info about AutoGit CLI");
 
     }
 
