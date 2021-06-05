@@ -32,6 +32,12 @@ file(GLOB_RECURSE SOURCES
 
 add_subdirectory("extern/CLI11")
 
+# ************ EXTERNAL LIBRARY INCLUSION ************ #
+
+add_library(rang INTERFACE)
+target_include_directories(rang SYSTEM INTERFACE "${CMAKE_SOURCE_DIR}/extern/rang/include")
+
+
 # **************** EXECUTABLE SETUP ****************** #
 
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
@@ -39,4 +45,4 @@ add_executable(${EXECUTABLE_NAME} ${SOURCES})
 # ***************** LIBRARY LINKING ****************** #
 
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE CLI11::CLI11)
-
+target_link_libraries(${EXECUTABLE_NAME} PRIVATE rang)
