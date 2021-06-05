@@ -2,7 +2,10 @@
 
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 #include <CLI/CLI.hpp>
+#include <fmt/format.h>
 #include <autogit-cli/Colors.hpp>
 
 /// Macro defined for parsing the CLI
@@ -24,7 +27,7 @@ namespace AutoGitCLI {
 
     std::string description();
 
-    std::string logo();
+    void logo();
 
     void infoScreen();
 

@@ -1,48 +1,32 @@
-#include <autogit-cli/Application.hpp>
+﻿#include <autogit-cli/Application.hpp>
 
 namespace AutoGitCLI {
 
-    std::string logo() {
+    void logo() {
+
         std::string logo = R"raw(
-
-_____/\\\\\\\\\__________________________________________________/\\\\\\\\\\\\_____________________        
- ___/\\\\\\\\\\\\\______________________________________________/\\\//////////______________________       
-  __/\\\/////////\\\___________________/\\\_____________________/\\\______________/\\\_____/\\\______      
-   _\/\\\_______\/\\\__/\\\____/\\\__/\\\\\\\\\\\_____/\\\\\____\/\\\____/\\\\\\\_\///___/\\\\\\\\\\\_     
-    _\/\\\\\\\\\\\\\\\_\/\\\___\/\\\_\////\\\////____/\\\///\\\__\/\\\___\/////\\\__/\\\_\////\\\////__    
-     _\/\\\/////////\\\_\/\\\___\/\\\____\/\\\_______/\\\__\//\\\_\/\\\_______\/\\\_\/\\\____\/\\\______   
-      _\/\\\_______\/\\\_\/\\\___\/\\\____\/\\\_/\\__\//\\\__/\\\__\/\\\_______\/\\\_\/\\\____\/\\\_/\\__  
-       _\/\\\_______\/\\\_\//\\\\\\\\\_____\//\\\\\____\///\\\\\/___\//\\\\\\\\\\\\/__\/\\\____\//\\\\\___ 
-        _\///________\///___\/////////_______\/////_______\/////______\////////////____\///______\/////____
-
+        ___         __        _______ __ 
+       /   | __  __/ /_____  / ____(_) /_
+      / /| |/ / / / __/ __ \/ / __/ / __/
+     / ___ / /_/ / /_/ /_/ / /_/ / / /_  
+    /_/  |_\__,_/\__/\____/\____/_/\__/  
+                                     
 )raw";
-        return logo;
+
+        std::cout << Color::reset << Color::green;
+        std::cout << logo;
+        std::cout << Color::reset << std::flush;
     }
 
     std::string description() {
-        std::string desc = logo();
-        desc += "\nAutoGit-CLI - A command-line tool to easily create and remove repositories from GitHub and local system.\n";
+        std::string desc;
+        desc = "\nAutoGit-CLI - A command-line tool to easily create and remove repositories from GitHub and local system.\n";
         return desc;
     }
 
     void infoScreen() {
-        std::string autogitLogo = description();
-        for (int i = 0; i < autogitLogo.size(); i++) {
-            std::string letter = autogitLogo.substr(i,1);
-            if (letter == "\\" || letter == "/") 
-            {
-                std::cout << Color::reset << Color::red;
-            }
-            else {
-                std::cout << Color::reset;
-            }
-            std::cout << autogitLogo[i];
-            if (autogitLogo[i] == '\n') 
-            {
-                std::cout << std::flush;
-            }
-        }
-        //std::cout << autogitLogo;
+        logo();
+        std::cout << Color::green << Color::bold << description() << Color::reset;
     }
 
     Application::Application(std::string description, int argc, char** argv)
