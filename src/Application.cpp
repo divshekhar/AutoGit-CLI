@@ -21,25 +21,28 @@ _____/\\\\\\\\\__________________________________________________/\\\\\\\\\\\\__
 
     std::string description() {
         std::string desc = logo();
-        desc += "\nAutoGit-CLI - A command-line tool to easily create and remove repositories from GitHub and local system.";
+        desc += "\nAutoGit-CLI - A command-line tool to easily create and remove repositories from GitHub and local system.\n";
         return desc;
     }
 
     void infoScreen() {
         std::string autogitLogo = description();
-        /*for (int i = 0; i < autogitLogo.size(); i++) {
+        for (int i = 0; i < autogitLogo.size(); i++) {
             std::string letter = autogitLogo.substr(i,1);
             if (letter == "\\" || letter == "/") 
             {
-                std::cout << Color::reset << Color::green;
+                std::cout << Color::reset << Color::red;
+            }
+            else {
+                std::cout << Color::reset;
             }
             std::cout << autogitLogo[i];
             if (autogitLogo[i] == '\n') 
             {
                 std::cout << std::flush;
             }
-        }*/
-        std::cout << autogitLogo;
+        }
+        //std::cout << autogitLogo;
     }
 
     Application::Application(std::string description, int argc, char** argv)
