@@ -7,3 +7,6 @@
 [submodule "extern/fmt"]
 	path = extern/fmt
 	url = https://github.com/fmtlib/fmt.git
+[submodule "extern/curlpp"]
+	path = extern/curlpp
+	url = https://github.com/jpbarrette/curlpp.git

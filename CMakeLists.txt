@@ -39,6 +39,9 @@ set_target_properties(fmt PROPERTIES FOLDER extern)
 add_library(rang INTERFACE)
 target_include_directories(rang SYSTEM INTERFACE "${CMAKE_SOURCE_DIR}/extern/rang/include")
 
+add_library(curlpp INTERFACE)
+target_include_directories(curlpp SYSTEM INTERFACE "${CMAKE_SOURCE_DIR}/extern/curlpp/include")
+
 
 # **************** EXECUTABLE SETUP ****************** #
 
@@ -49,3 +52,4 @@ add_executable(${EXECUTABLE_NAME} ${SOURCES})
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE CLI11::CLI11)
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE rang)
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE fmt)
+target_link_libraries(${EXECUTABLE_NAME} PRIVATE curlpp)
