@@ -31,6 +31,8 @@ file(GLOB_RECURSE SOURCES
 # ************** SUBDIRECTORY INCLUSION ************** #
 
 add_subdirectory("extern/CLI11")
+add_subdirectory("extern/fmt")
+set_target_properties(fmt PROPERTIES FOLDER extern)
 
 # ************ EXTERNAL LIBRARY INCLUSION ************ #
 
@@ -46,3 +48,4 @@ add_executable(${EXECUTABLE_NAME} ${SOURCES})
 
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE CLI11::CLI11)
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE rang)
+target_link_libraries(${EXECUTABLE_NAME} PRIVATE fmt)
