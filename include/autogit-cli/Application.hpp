@@ -7,6 +7,7 @@
 #include <CLI/CLI.hpp>
 #include <fmt/format.h>
 #include <autogit-cli/Colors.hpp>
+#include <autogit-cli/Credentials.hpp>
 
 /// Macro defined for parsing the CLI
 #define AutoGitCLI_PARSE(app, ...)               \
@@ -37,8 +38,11 @@ namespace AutoGitCLI {
     protected:
         int m_argc;
         char** m_argv;
+        Credentials m_credentials;
     public:
         Application(std::string description, int argc, char** argv);
+
+        Credentials getCredentials();
 
         void run();
 
