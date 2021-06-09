@@ -4,7 +4,15 @@ project ("AutoGit-CLI" VERSION 2.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
+# Set Pybind11 python version
+set(PYBIND11_PYTHON_VERSION 3.8.2 CACHE STRING "")
+
+# Set runtime output directory
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
+# Executable name
 set(EXECUTABLE_NAME "autogit")
 
 if(NOT EXISTS "${CMAKE_SOURCE_DIR}/extern/CLI11/CMakeLists.txt")
@@ -30,14 +38,14 @@ file(GLOB_RECURSE SOURCES
 
 # ************** SUBDIRECTORY INCLUSION ************** #
 
+find_package(Python COMPONENTS Interpreter Development)
+add_subdirectory("extern/pybind11")
+
 add_subdirectory("extern/CLI11")
 add_subdirectory("extern/fmt")
 set_target_properties(fmt PROPERTIES FOLDER extern)
 
 # ************ EXTERNAL LIBRARY INCLUSION ************ #
-
-find_package(PythonLibs REQUIRED)
-include_directories(${PYTHON_INCLUDE_DIRS})
 
 add_library(rang INTERFACE)
 target_include_directories(rang SYSTEM INTERFACE "${CMAKE_SOURCE_DIR}/extern/rang/include")
@@ -50,10 +58,17 @@ target_include_directories(curlpp SYSTEM INTERFACE "${CMAKE_SOURCE_DIR}/extern/c
 
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
 
-# ***************** LIBRARY LINKING ****************** #
+# ************** SET BINARY FILENAMES **************** #
 
-target_link_libraries(${EXECUTABLE_NAME} PRIVATE ${PYTHON_LIBRARIES})
+set_target_properties(${EXECUTABLE_NAME} PROPERTIES OUTPUT_NAME_DEBUG ${EXECUTABLE_NAME}-debug)
+set_target_properties(${EXECUTABLE_NAME} PROPERTIES OUTPUT_NAME_RELWITHDEBUGINFO ${EXECUTABLE_NAME}-relwithdebuginfo)
+set_target_properties(${EXECUTABLE_NAME} PROPERTIES OUTPUT_NAME_RELEASE ${EXECUTABLE_NAME}-release)
+set_target_properties(${EXECUTABLE_NAME} PROPERTIES OUTPUT_NAME_MINSIZEREL ${EXECUTABLE_NAME}-minsizerel)
+
+# **************** EXECUTABLE SETUP ****************** #
+
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE CLI11::CLI11)
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE rang)
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE fmt)
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE curlpp)
+target_link_libraries(${EXECUTABLE_NAME} PRIVATE pybind11::embed pybind11::module pybind11::pybind11)
