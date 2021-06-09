@@ -10,3 +10,7 @@
 [submodule "extern/curlpp"]
 	path = extern/curlpp
 	url = https://github.com/jpbarrette/curlpp.git
+[submodule "extern/pybind11"]
+	path = extern/pybind11
+	url = https://github.com/pybind/pybind11.git
+	branch = stable
