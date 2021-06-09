@@ -11,6 +11,10 @@
 #include <unistd.h>
 #endif // __linux__
 
+#include <pybind11/embed.h>
+
+namespace py = pybind11;
+
 namespace AutoGitCLI {
 	Authentication::Authentication(Application& app) : m_app(app) {
         if (m_app.got_subcommand("config")) {
@@ -51,6 +55,17 @@ namespace AutoGitCLI {
 
             std::cout << "> GitHub Password: ";
             std::getline(std::cin, password);
+            std::cout << std::endl;
+        }
+
+        py::scoped_interpreter guard{};
+        try {
+            auto  authModule = py::module::import("python.auth");
+            auto func = authModule.attr("authentication");
+            func(username,password);
+        }
+        catch (py::error_already_set& e) {
+            std::cout << e.what() << std::endl;
         }
         
 	}
